@@ -3,7 +3,7 @@
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-21132921-10']);
+  _gaq.push(['_setAccount', 'UA-21132921-11']);
   _gaq.push(['_trackPageview']);
 
   (function() {
@@ -21,8 +21,10 @@ This is a stand-alone computer that you can build easily<BR>
 May 13 2012: Finally released the TV version of the computer!<BR>
 May 7 2012: Added a BASIC preprocessor made in python that allows you to write code withought line numbers and to use labels. the preprocessor adds the lines and changes the labels to line numbers. Also made an AmericanFootball BASIC game, as an example of how to use the preprocessor. Also made some small changes to the firmware, so make sure to update that too.<BR>
 May 10 2012: Fixed a bug that allowed only 127 lines of BASIC in one program, now allows 255 lines, I will increase this number when I get a chance. AmericanFootball.BAS now works, I have finally tested it. Update all your files!<BR>
+<CENTER>
 <img src="ArduinoRetroComputerTV.jpg" height=315 width=270>
 <img src="screenshotTV.jpg" height=315 width=270>
+</CENTER>
 <iframe width="560" height="315" src="http://www.youtube.com/embed/8m8IKQNJNZY" frameborder="0" allowfullscreen></iframe>
 <CENTER>
 <img src="ArduinoRetroComputer_TV_Wireing.png"><BR>
@@ -35,10 +37,18 @@ I did not use this, but you may consider using this hack to connect an SD card u
 WARNING, the SDcard library does not use a FAT file system. so any data you may have on the SD card will be lost. you will need to reformat the SD card to use it again on a PC.<BR>
 The keyboard you use MUST be a PS2 keyboard(PS2 as in the old IBMs, not PlayStation2)<BR>
 for information on how to connect the keyboard to the arudino go here:<a href="http://www.arduino.cc/playground/Main/PS2Keyboard">http://www.arduino.cc/playground/Main/PS2Keyboard</a><BR>
-Download the software from <a href="https://github.com/amigojapan/Arduino-Retro-Computer-with-SD-card-and-LCD-display-and-Keyboard-input-with-BASIC-interpreter">https://github.com/amigojapan/Arduino-Retro-Computer-with-SD-card-and-LCD-display-and-Keyboard-input-with-BASIC-interpreter</a><BR>
+Download the software from <a href="https://github.com/amigojapan/Arduino-Retro-Computer-TV">https://github.com/amigojapan/Arduino-Retro-Computer-TV</a><BR>
 Unpack the 2 zip files into the libraries directory of your arduino software, restart the IDE<BR>
-I realize that few people will use the LCD module I used(which is a rare Japanese one), if someone uses a normal LCD remove the driver for mine, and replace all the print2nl() and print2 with lcd.print and lcd.printnl and send me a copy of the working sketch to usmpadow@gmail.com so I can put it up with this project.<BR>
-In case you do get your hards on the same LCD as I used, here is it's datasheet:<a href=http://akizukidenshi.com/download/SC2004CSWB.pdf>http://akizukidenshi.com/download/SC2004CSWB.pdf</a><BR>
+Parts List<BR>
+Amount	Part Type	<BR>
+1	TV with composite video input<BR>
+2	Arduino	processor ATmega; variant Arduino (I used Arduino UNOs)<BR>
+1	PS2 Keyboard	<BR>
+1	SDCard Slot	(you can use the hack recommended above)<BR>
+3	1.8K . Resistor	<BR>
+10	130 . Resistor	<BR>
+2	220 . Resistor	<BR>
+3	3.3K . Resistor	<BR>
 <BR>
 Usmar Padow's BASIC commands:(COMMANDS MUST BE IN UPPER CASE, YOU MUST MAKE A PROGRAM, DIRECT INTERPRETATION IS NOT IMPLEMENTED)<BR>
 LIST --- Displays each line of the current program line by line.<BR>
