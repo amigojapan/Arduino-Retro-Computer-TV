@@ -1,0 +1,108 @@
+<html>
+<head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-21132921-10']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+<body>
+Arduino Retro Computer with oard and SD card and BASIC interpreter for TV<BR>
+Copyright 2011 Usmar A Padow usmpadow@gmail.com (also known as amigojapan on freenode IRC and on youtube)<BR>
+This is a stand-alone computer that you can build easily<BR>
+May 13 2012: Finally released the TV version of the computer!<BR>
+May 7 2012: Added a BASIC preprocessor made in python that allows you to write code withought line numbers and to use labels. the preprocessor adds the lines and changes the labels to line numbers. Also made an AmericanFootball BASIC game, as an example of how to use the preprocessor. Also made some small changes to the firmware, so make sure to update that too.<BR>
+May 10 2012: Fixed a bug that allowed only 127 lines of BASIC in one program, now allows 255 lines, I will increase this number when I get a chance. AmericanFootball.BAS now works, I have finally tested it. Update all your files!<BR>
+<img src="ArduinoRetroComputerTV.jpg" height=315 width=270>
+<img src="screenshotTV.jpg" height=315 width=270>
+<iframe width="560" height="315" src="http://www.youtube.com/embed/8m8IKQNJNZY" frameborder="0" allowfullscreen></iframe>
+<CENTER>
+<img src="ArduinoRetroComputer_TV_Wireing.png"><BR>
+</CENTER>
+Create the SD card circuit as in (source <a href=http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1206874649>http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1206874649 )</a><BR>
+<CENTER>
+<img src="SDcardDiagram.png"><BR>
+</CENTER>
+I did not use this, but you may consider using this hack to connect an SD card using a 5.25 inch floppy disk connector:<a href=http://hackaday.com/2006/09/12/floppy-connector-mmc-card-slot/>http://hackaday.com/2006/09/12/floppy-connector-mmc-card-slot/</a><BR>
+WARNING, the SDcard library does not use a FAT file system. so any data you may have on the SD card will be lost. you will need to reformat the SD card to use it again on a PC.<BR>
+The keyboard you use MUST be a PS2 keyboard(PS2 as in the old IBMs, not PlayStation2)<BR>
+for information on how to connect the keyboard to the arudino go here:<a href="http://www.arduino.cc/playground/Main/PS2Keyboard">http://www.arduino.cc/playground/Main/PS2Keyboard</a><BR>
+Download the software from <a href="https://github.com/amigojapan/Arduino-Retro-Computer-with-SD-card-and-LCD-display-and-Keyboard-input-with-BASIC-interpreter">https://github.com/amigojapan/Arduino-Retro-Computer-with-SD-card-and-LCD-display-and-Keyboard-input-with-BASIC-interpreter</a><BR>
+Unpack the 2 zip files into the libraries directory of your arduino software, restart the IDE<BR>
+I realize that few people will use the LCD module I used(which is a rare Japanese one), if someone uses a normal LCD remove the driver for mine, and replace all the print2nl() and print2 with lcd.print and lcd.printnl and send me a copy of the working sketch to usmpadow@gmail.com so I can put it up with this project.<BR>
+In case you do get your hards on the same LCD as I used, here is it's datasheet:<a href=http://akizukidenshi.com/download/SC2004CSWB.pdf>http://akizukidenshi.com/download/SC2004CSWB.pdf</a><BR>
+<BR>
+Usmar Padow's BASIC commands:(COMMANDS MUST BE IN UPPER CASE, YOU MUST MAKE A PROGRAM, DIRECT INTERPRETATION IS NOT IMPLEMENTED)<BR>
+LIST --- Displays each line of the current program line by line.<BR>
+RUN --- Runs the current program<BR>
+OPEN # --- Opens or creates a new program. the # parameter can be from 0 to 9. on bootup program 0 is loaded<BR>
+L# PRINT "TEXT" --- prints a line of text (L# means Line Number)<BR>
+L# PRINT variable_name --- prints the contents of a variable<BR>
+L# REM comment -- creates a comment in the program<BR>
+L# INPUT variable_name --- prompts the user to input a number, and stores it in a variable<BR>
+L# variable_name=expression --- evaluates the expression and stores it in a variable. e.g. X=5+3<BR>
+L# IF expression THEN L# --- evaluates expression and goes to the line specified after THEN if the expression is true. e.g. IF X>3 THEN 10<BR>
+L# FOR variable_name=# to # --- makes a FOR NEXT loop BUG FIXED! e.g FOR X=10 TO 20<BR>
+L# NEXT variable_name --- ends a FOR loop e.g. NEXT X<BR>
+L# GOTO L# --- goes to the line number specified<BR>
+L# GOSUB L# --- goes to the line number specified and will return to the next line when a RETURN is encountered (it seems this might be buggy too. I will try to fix it)<BR>
+L# RETURN --- return to the next line after the last GOSUB<BR>
+L# END --- ends the current execution of the program at current line<BR>
+to create a random number, you must set X to the minimum number then set Y to the macimum number, then call variable_name=RND, e.g.:<BR>
+10 X=10<BR>
+20 Y=20<BR>
+30 N=RND<BR>
+40 PRINT N<BR>
+this program will assign a random number between 10 and 20 to N and print it<BR>
+<BR>
+Variables names must be a single letter of the alphabet <BR>
+<BR>
+Preprocessor:<BR>
+the preprocessor adds the lines and changes the labels to line numbers<BR>
+quckbasicpreprocessor.py converts labels to line numbers<BR>
+example usage:<BR>
+python quckbasicpreprocessor.py AmericanFootball.qb<BR>
+the new program will be stored in PROGRAM.BAS<BR>
+<BR>
+How to upload BASIC programs to the SD card withought having to type them out:<BR>
+Upload the SDmemBASIC.ino sketch to the arudino.<a href=https://github.com/amigojapan/BASIC-interpreter-for-arduino-that-uses-SD-memory-instead-or-RAM-and-ArduinoSimulator>https://github.com/amigojapan/BASIC-interpreter-for-arduino-that-uses-SD-memory-instead-or-RAM-and-ArduinoSimulator</a><BR>
+Use a terminal program like Tera Term, connect to your arduino(if it is terraterm, set the wait to 20ms for each char and 200ms for each line in setup=>Serial Port)<BR>
+if in windows use a text editor that supports unix new lines like geany<BR>
+Open the .BAS file in the text editor<BR>
+do Edit->Copy<BR>
+Open the terminal program and connect to the arudino at 9600bps<BR>
+do Edit->Paste<BR>
+(if terra term do Edit->Paste CR)<BR>
+reupload the LCD sketch to run the programs on LCD<BR>
+<BR>
+Programs that work on the Arduino Retro Computer are welcome to usmpadow@gmail.com<BR>
+<BR>
+If you just want to try the BASIC interpreter, here are 2 more versions of it:<BR>
+this one only uses the SD card, and the Serial Terminal to communicate, no LCD screen required:
+<a href=https://github.com/amigojapan/BASIC-interpreter-for-arduino-that-uses-SD-memory-instead-or-RAM-and-ArduinoSimulator>https://github.com/amigojapan/BASIC-interpreter-for-arduino-that-uses-SD-memory-instead-or-RAM-and-ArduinoSimulator</a><BR>
+this one uses RAM, so you only need an arduino, no SD card or LCD screen, the BASIC programs are very restricted by RAM:<a href=https://github.com/amigojapan/Interactive-Arduino-Basic-Interpreter>https://github.com/amigojapan/Interactive-Arduino-Basic-Interpreter</a><BR>
+here are another few projects I did:<BR>
+<a href=http://amigojapan.github.com/Arduino-LED-Matrix-Display/>http://amigojapan.github.com/Arduino-LED-Matrix-Display/</a><BR>
+<a href=http://amigojapan.github.com/Logo-Programming-Game/>http://amigojapan.github.com/Logo-Programming-Game/</a><BR>
+<a href=http://amigojapan.github.com/web-JavaScript-programmable-scientific-calculator/>http://amigojapan.github.com/web-JavaScript-programmable-scientific-calculator/</a><BR>
+this one is still in alpha state, but I am very excited about it, it is an 3D Programming Language made in Unity for teaching programming to beginners(look in source zip file inside assets subdirectory for a file called testscript.js, you will find examples of how to program in the language in the comments :
+<a href=https://github.com/amigojapan/3dpl>https://github.com/amigojapan/3dpl</a><BR>
+and here are some games I made in GameMaker windows executables, but they run in wine(click download on bottom right of web page):<BR>
+<a href=http://sandbox.yoyogames.com/games/92441-be-osama-terrorism-strategy-game>http://sandbox.yoyogames.com/games/92441-be-osama-terrorism-strategy-game</a><BR>
+<a href=http://sandbox.yoyogames.com/games/79888-tom-burger-2-english>http://sandbox.yoyogames.com/games/79888-tom-burger-2-english</a><BR>
+<a href=http://sandbox.yoyogames.com/games/72683-pachidomi>http://sandbox.yoyogames.com/games/72683-pachidomi</a><BR>
+<!-- begin htmlcommentbox.com -->
+ <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">HTML Comment Box</a> is loading comments...</div>
+ <link rel="stylesheet" type="text/css" href="http://www.htmlcommentbox.com/static/skins/simple/skin.css" />
+ <script type="text/javascript" language="javascript" id="hcb"> /*<!--*/ if(!window.hcb_user){hcb_user={  };} (function(){s=document.createElement("script");s.setAttribute("type","text/javascript");s.setAttribute("src", "http://www.htmlcommentbox.com/jread?page="+escape((window.hcb_user && hcb_user.PAGE)||(""+window.location)).replace("+","%2B")+"&mod=%241%24wq1rdBcg%24Jz6kdIcrNrVLA6vgjX5/z0"+"&opts=478&num=10");if (typeof s!="undefined") document.getElementsByTagName("head")[0].appendChild(s);})(); /*-->*/ </script>
+<!-- end htmlcommentbox.com -->
+</body>
+</html>

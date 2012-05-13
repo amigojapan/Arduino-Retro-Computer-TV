@@ -1,0 +1,56 @@
+<html>
+<head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-21132921-10']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+<body>
+Arduino Retro Computer with LCD display Keyboard and SD card and BASIC interpreter<BR>
+Copyright 2011 Usmar A Padow usmpadow@gmail.com<BR>
+This is a stand-alone computer that you can build easily<BR>
+<img src="ArduinoRetroComputer.jpg" height=315 width=270>
+<iframe width="560" height="315" src="http://www.youtube.com/embed/8m8IKQNJNZY" frameborder="0" allowfullscreen></iframe>
+<CENTER>
+<img src="diagram1.png"><BR>
+</CENTER>
+Create the SD card circuit as in (source http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1206874649 )<BR>
+<CENTER>
+<img src="SDcardDiagram.png"><BR>
+</CENTER>
+WARNING, the SDcard library does not use teh FAT file system. so any data you may have on the SD card will be lost. you will need to reformat the SD card to use it again on a PC.<BR>
+<!-- begin htmlcommentbox.com -->
+The keyboard you use MUST be a PS2 keyboard(PS2 as in the old IBMs, not Playstation)<BR>
+for information on how to connect the keyboard to the arudino go here:<a href="http://www.arduino.cc/playground/Main/PS2Keyboard">http://www.arduino.cc/playground/Main/PS2Keyboard</a><BR>
+Download the software from <a href="https://github.com/amigojapan/Arduino-Retro-Computer-with-SD-card-and-LCD-display-and-Keyboard-input-with-BASIC-interpreter">https://github.com/amigojapan/Arduino-Retro-Computer-with-SD-card-and-LCD-display-and-Keyboard-input-with-BASIC-interpreter</a><BR>
+Unpack the 2 zip files into the libraries directory of your arduino software, restart the IDE<BR>
+I realize that few people will use the LCD module I used(which is a rare Japanese one), if someone uses a normal LCD remove the driver for mine, and replace all the print2nl() and print2 with lcd.print and lcd.printnl and send me a copy of the working sketch to usmpadow@gmail.com so I can put it up with this project.<BR>
+If you just want to try the BASIC interpreter, here are 2 more versions of it:<BR>
+this one only uses the SD card, and the Serial Terminal to communicate, no LCD screen required:
+<a href=https://github.com/amigojapan/BASIC-interpreter-for-arduino-that-uses-SD-memory-instead-or-RAM-and-ArduinoSimulator>https://github.com/amigojapan/BASIC-interpreter-for-arduino-that-uses-SD-memory-instead-or-RAM-and-ArduinoSimulator</a><BR>
+this one uses RAM, so you only need an arduino, no SD card or LCD screen, the BASIC programs are very restricted by RAM:<a href=https://github.com/amigojapan/Interactive-Arduino-Basic-Interpreter>https://github.com/amigojapan/Interactive-Arduino-Basic-Interpreter</a><BR>
+here are another few projects I did:<BR>
+<a href=http://amigojapan.github.com/Arduino-LED-Matrix-Display/>http://amigojapan.github.com/Arduino-LED-Matrix-Display/</a><BR>
+<a href=http://amigojapan.github.com/Logo-Programming-Game/>http://amigojapan.github.com/Logo-Programming-Game/</a><BR>
+<a href=http://amigojapan.github.com/web-JavaScript-programmable-scientific-calculator/>http://amigojapan.github.com/web-JavaScript-programmable-scientific-calculator/</a><BR>
+this one is still in alpha state, but I am very enthusastic about it, it is an 3D Programming Language made in Unity for teaching programming to beginners(look in source zip file inside assets subdirectory for a file called testscript.js, you will find examples of how to program in the language in the comments :
+<a href=https://github.com/amigojapan/3dpl>https://github.com/amigojapan/3dpl</a><BR>
+and here are some games I made in GameMaker windows executables, but they run in wine(click download on borrom right of web page):<BR>
+<a href=http://sandbox.yoyogames.com/games/92441-be-osama-terrorism-strategy-game>http://sandbox.yoyogames.com/games/92441-be-osama-terrorism-strategy-game</a><BR>
+<a href=http://sandbox.yoyogames.com/games/79888-tom-burger-2-english>http://sandbox.yoyogames.com/games/79888-tom-burger-2-english</a><BR>
+<a href=http://sandbox.yoyogames.com/games/72683-pachidomi>http://sandbox.yoyogames.com/games/72683-pachidomi</a><BR>
+ <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">HTML Comment Box</a> is loading comments...</div>
+ <link rel="stylesheet" type="text/css" href="http://www.htmlcommentbox.com/static/skins/simple/skin.css" />
+ <script type="text/javascript" language="javascript" id="hcb"> /*<!--*/ if(!window.hcb_user){hcb_user={  };} (function(){s=document.createElement("script");s.setAttribute("type","text/javascript");s.setAttribute("src", "http://www.htmlcommentbox.com/jread?page="+escape((window.hcb_user && hcb_user.PAGE)||(""+window.location)).replace("+","%2B")+"&mod=%241%24wq1rdBcg%24Jz6kdIcrNrVLA6vgjX5/z0"+"&opts=478&num=10");if (typeof s!="undefined") document.getElementsByTagName("head")[0].appendChild(s);})(); /*-->*/ </script>
+<!-- end htmlcommentbox.com -->
+</body>
+</html>
