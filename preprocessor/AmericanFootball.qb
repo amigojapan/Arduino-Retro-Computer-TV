@@ -1,0 +1,202 @@
+X=1
+Y=100+1
+N=RND
+IF N<50 THEN wintoss
+PRINT "YOU LOST TOSS"
+REM  when O is 1 player is on the offence 0 is on deffence
+O=0
+GOTO kickoff
+wintoss:
+PRINT "YOU WON TOSS"
+PRINT "[ENTER] TO CONTINUE"
+INPUT Q
+REM  when O is 1 player is on the offence 0 is on deffence
+O=1
+GOTO kickoff
+menu:
+IF D=5 THEN ballchangesides
+L=T
+T=L+1
+REM 120 downs in one game
+IF T=120 THEN gameover
+info:
+PRINT "Score,YOU,COMP:"
+PRINT A
+PRINT B
+PRINT "[ENTER] TO CONTINUE"
+INPUT Q
+PRINT "Down,Yard:"
+PRINT D
+PRINT E
+PRINT "[ENTER] TO CONTINUE"
+INPUT Q
+PRINT "1stDn,Turn of120:"
+C=F-E
+PRINT C
+PRINT T
+PRINT "[ENTER] TO CONTINUE"
+INPUT Q
+IF O=0 THEN ai
+PTINT "1)LONG PASS 3)RUN"
+PTINT "2)SHORTPASS 4)PUNT"
+PTINT "5)FIELD GOAL6)INFO"
+INPUT Q
+X=1
+Y=100
+N=RND
+IF Q=1 THEN longpass
+IF Q=2 THEN shortpass
+IF Q=3 THEN run
+IF Q=4 THEN punt
+IF Q=5 THEN fieldgoal
+IF Q=6 THEN info
+PRINT "INCORRECT INPUT"
+PRINT "MUST INPUT 1 TO 6"
+PRINT "[ENTER] TO CONTINUE"
+INPUT Q
+GOTO info
+kickoff:
+PRINT "KICKOFF"
+PRINT "[ENTER] TO CONTINUE"
+INPUT Q
+REM E is for Yard, start the down with a distance from 1 to 30
+Y=1
+X=30+1
+E=RND
+F=E+10
+REM D is for Down
+D=1
+GOTO menu
+longpass:
+PRINT "LONG PASS"
+X=50
+Y=100
+IF N<10 THEN success
+GOTO fail
+shortpass:
+PRINT "SHORT PASS"
+X=1
+Y=50
+IF N<25 THEN success
+GOTO fail
+run:
+PRINT "RUN"
+X=1
+Y=100
+IF N<50 THEN success
+GOTO fail
+punt:
+REM I dont know how punt works
+PRINT "PUNT"
+Y=1
+X=50+1
+E=RND
+F=E+10
+REM D is for Down
+D=1
+GOTO ballchangesides
+fieldgoal:
+PRINT "FIELD GOAL"
+REM I gotta ask if this is corrrect, I think it it wrong
+X=1
+Y=100+1
+N=RND
+IF N<50 THEN fielgoalsuccess
+PRINT "FAILED"
+GOTO ballchangesides
+fielgoalsuccess:
+PRINT "SUCCEDED"
+IF O=1 THEN add2pointsplayer
+L=B
+B=L+2
+GOTO ballchangesides
+add2pointsplayer:
+L=A
+A=L+2
+GOTO ballchangesides
+fail:
+PRINT "FAILED"
+PRINT "[ENTER] TO CONTINUE"
+INPUT Q
+REM L is a temporary variable cause D=D+1 doesnt seem to work
+L=D
+D=L+1
+GOTO menu
+success:
+PRINT "SUCCEDED"
+PRINT "[ENTER] TO CONTINUE"
+INPUT Q
+N=RND
+REM P is previous line of scrimmage
+P=E
+L=E
+E=L+N
+IF E>99 THEN touchdown
+N=F+10
+IF E>N THEN downone
+REM L is a temporary variable cause D=D+1 doesnt seem to work
+L=D
+D=L+1
+IF D>4 THEN ballchangesides
+GOTO menu
+ballchangesides:
+IF O=1 THEN setdeffence
+O=1
+GOTO kickoff
+setdeffence:
+O=0
+GOTO kickoff
+downone:
+D=1
+F=E+10
+GOTO menu
+touchdown:
+PRINT "TOUCHDOWN!"
+IF O=1 THEN add6pointsplayer
+L=B
+B=L+6
+PRINT "EXTRA POINT"
+X=1
+Y=2
+N=RND
+L=B
+B=L+N
+GOTO ballchangesides
+add6pointsplayer:
+L=A
+A=L+6
+PRINT "EXTRA POINT"
+X=1
+Y=2
+N=RND
+L=A
+A=L+N
+GOTO ballchangesides
+ai:
+REM ask my father how the computer should play
+PRINT "COMPUTER MOVE"
+IF D<4 THEN notfourth
+IF E>80 THEN fieldgoal
+IF E<60 THEN punt
+notfourth:
+X=1
+Y=3
+N=RND
+IF E<50 THEN noshotrpass
+IF N=2 THEN shortpass
+noshotrpass:
+IF D<3 THEN run 
+IF N=1 THEN longpass
+IF N=2 THEN longpass
+IF N=3 THEN run
+gameover:
+PRINT "GameOver,YOU,COMP:"
+PRINT A
+PRINT B
+PRINT "[ENTER] TO CONTINUE"
+INPUT Q
+IF A>B THEN wingame
+PRINT "COMPUTER WINS"
+END
+wingame:
+PRINT "YOU WIN"

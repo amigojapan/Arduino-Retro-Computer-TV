@@ -1,0 +1,211 @@
+Football rules
+Coin toss.
+Team that wins the toss elects to recieve or elects to defend which side of the field they want to play.
+Kickoff
+//if the ball goes mroe than 10 yards, it is a free ball(very rare)
+other team catches the ball and tries to run as much as they can. ball must be in bounds if it falls out of bounds,
+the revieving team gets it in their 40 yard line.
+recieving team has the ball... 
+Offence
+must advance 10 yards to make first down, four downs and the ball possesion changes to the other team.
+Long Pass 30% of the time(if you succedd you go far), short pass 40% of the time(but if you succeed you dont
+ go far, but better yards than run), Run succsefull 50% of the time(if run doesnt succeed you can loose yarage).
+
+when the pass in INCOMPLETE(falls to the floor) the yards don't advance.
+Interception:
+10% for long pass, 4% for short pass.(to make the game mroe exciting lets make thisn 25% and 10%)
+3 down and you have not gotten 10 yards you have to punt(kicking the ball to the other side).
+
+Defence
+#5-4 red-dog
+Defend against Long Pass, Defend Against short pass, Defend against run.
+
+If ball goes past 99 yards, it is a touchdown.
+
+question,. what do you call the kick where you try to kick it to the goalpost and can get points, hwo many points?   how many points for a touch down?
+what about half times and stuff like that? does the ball change possesion at halftime? are there also quarters?
+
+example of screeen: on 16X2 display
+YOU WON TOSS
+1)KICK2)RECIEVE
+2
+KICKOFF
+Offensive
+S10-20D2YRD80OF(means Score 10-20 Down 2 Yard 80)
+1)2)3)4)5)6Help
+6
+the first line means Score PlayerTeam-ComputerTeam then D means what Down we are at YRD means what Yard we are at OF means OFFENDIVE DE meand DEFENSIVE
+1)Long Ppass 2)Short Pass 3)RUN 4)PUNT 5)FIELD GOAL
+S10-20D2YRD80OF
+1)2)3)4)5)6Help
+1
+LONG PASS
+INCOMPLETE PASS
+S10-20D3YRD80
+1)2)3)4)5)6Help
+2
+SHORT PASS
+PASS COMPELETE
+S10-20D1YRD91
+1)2)3)4)5)6Help
+3
+RUN
+RUN FAILED
+S10-20D2YRD85
+1)2)3)4)5)6Help
+
+
+ X=1
+ Y=100+1
+ N=RND
+ IF N<50 THEN wintoss
+ PRINT "YOU LOST TOSS"
+ REM  when O is 1 player is on the offence 0 is on deffence
+ O=0
+ GOTO kickoff
+wintoss:
+ PRINT "YOU WON TOSS"
+ REM  when O is 1 player is on the offence 0 is on deffence
+ O=1
+ GOTO kickoff
+menu: REM main menu
+ T=T+1
+ REM 40 turns in one game
+ IF T=40 THEN gameover
+ IF O=0 THEN ai
+ PRINT "Your team Score"
+ PRINT A
+ PRINT "Computer team score"
+ PRINT B
+ INPUT Q
+ PRINT "Down"
+ PRINT D
+ PRINT "Yard"
+ PRINT E
+ INPUT Q
+ PTINT "1)LONG PASS 3)RUN"
+ PTINT "2)SHORTPASS 4)PUNT"
+ PTINT "5)FIELD GOAL"
+ INPUT Q
+ X=1
+ Y=100+1
+ N=RND
+ IF Q=1 THEN longpass
+ IF Q=2 THEN shortpass
+ IF Q=3 THEN run
+ IF Q=4 THEN punt
+ IF Q=5 THEN fieldgoal
+ PRINT "INCORRECT INPUT"
+ PRINT "MUST INPUT 1 TO 5"
+ INPUT Q
+ GOTO menu
+
+kickoff:
+ PRINT "KICKOFF"
+ REM E is for Yard, start the down with a distance from 1 to 30
+ Y=1
+ X=30+1
+ E=RND
+ REM D is for Down
+ D=1
+ GOTO menu:
+
+longpass:
+ PRINT "LONG PASS"
+ IF N<10 THEN success
+ GOTO fail
+shortpass:
+ PRINT "SHORT PASS"
+ X=1
+ Y=50+1
+ IF N<25 THEN success
+ GOTO fail
+run:
+PRINT "RUN"
+ IF N<50 THEN success
+ GOTO fail
+punt:
+ //I dont know how punt works
+ PRINT "PUNT"
+ Y=1
+ X=50+1
+ E=RND
+ REM D is for Down
+ D=1
+ GOTO ballchangesides
+
+fieldgoal:
+ PRINT "FIELD GOAL"
+// I gotta ask if this is corrrect, I think it it wrong
+ X=1
+ Y=100+1
+ N=RND
+ IF N<50 THEN fielgoalsuccess
+ PRINT "FAILED"
+ GOTO ballchangesides
+fielgoalsuccess:
+ PRINT "SUCCEDED"
+ IF O=1 THEN addpointsplayer
+ B=B+2
+ GOTO kickoff
+addpointsplayer:
+ A=A+2
+ GOTO kickoff
+ 
+fail:
+ PRINT "FAILED"
+ INPUT Q
+ D=D+1
+ GOTO menu
+success:
+ PRINT "SUCCEDED"
+ INPUT Q
+ N=RND
+ REM P is previous line of scrimmage
+ P=E
+ E=E+N
+ IF E>=100 THEN touchdown
+ N=P+10
+ IF E>N THEN downone
+ D=D+1
+ IF D>4 THEN ballchangesides
+ GOTO menu
+ballchangesides:
+ IF O=1 THEN setdeffence
+ O=1
+ GOTO menu
+setdeffence:
+ O=0
+ GOTO menu
+downone:
+ D=1
+ GOTO menu
+touchdown:
+ IF O=1 THEN addpointsplayer
+ B=B+6
+ GOTO kickoff
+addpointsplayer:
+ A=A+6
+ GOTO kickoff
+
+ai:
+PRINT "COMPUTER MOVE"
+IF E<20 THEN fieldgoal
+IF D=4 THEN punt
+X=1
+Y=3+1
+N=RND
+IF E<50 THEN noshotrpass
+IF N=2 THEN shortpass
+noshotrpass:
+IF D<3 THEN run 
+IF N=1 THEN longpass
+IF N=3 THEN run
+//ask my father how the computer should play
+
+gameover:
+ IF A>B THEN wingame
+ PRINT "COMPUTER WINS"
+ END
+wingame:
+ PRINT "YOU WIN"
